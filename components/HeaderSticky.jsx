@@ -21,23 +21,30 @@ export default function HeaderSticky() {
         }
     ]
 
-    // Display Header Logo and Navbar in Horizontal Layout
-    const horizontalLayout = true
+    /////////////////////////////////////////////////////////////
 
-    // Sticky Header "slide in" mode
+    // Display header logo and navbar in Horizontal Layout instead of the default Vertical - On/Off
+    const horizontalLayout = false
+
+    // Sticky header "slide in" animation On/Off (Feature disabled for mobile)
     const stickySlideInMode = true
 
-    // Sticky Header "fade in" mode
-    const stickyFadeInMode = true
+    // Sticky header "fade in" animation On/Off (Feature disabled for mobile)
+    const stickyFadeInMode = false
 
-    // Accepts color names, "transparent" or hex colors (eg. #0070F3)
-    const headerBackground = "white"
-
-    // Speed of fade in / slide in animation in seconds
+    // Speed of fade in & slide in animation in seconds
     const animationSpeed = "0.5"
 
-    // Debug Mode On/Off
-    const showContainersBorders = false;
+    // Header Background color. Accepts color names, "transparent" or hex colors (eg. #0070F3)
+    const headerBackgroundColor = "white"
+
+    // If the parent elements or the body has padding or margin and the 
+    // Header looks narrower, the following function force the fixed and 
+    // sticky header to reach the full width of the browser viewport.
+    const forceFullWidth = true
+
+    // Displays borders around header inner div elements / Use this as a Debug Mode - On/Off
+    const showContentBorders = false
 
     /////////////////////////////////////////////////////////////
 
@@ -80,7 +87,8 @@ export default function HeaderSticky() {
                 className={
                     'header__wrapper ' + 
                     'fixed ' +
-                    (showStickyHeader ? "hidden " : "active ")
+                    (showStickyHeader ? "hidden " : "active ") +
+                    (forceFullWidth ? "force-full-width" : "")
                 }
             >
                 <div className={
@@ -123,7 +131,8 @@ export default function HeaderSticky() {
                     "sticky " +
                     (stickySlideInMode ? "slide " : "") +
                     (showStickyHeader ? "active " : "hidden ") +
-                    (headerStickyReachedTop ? "top-reach " : "")
+                    (headerStickyReachedTop ? "top-reach " : "") +
+                    (forceFullWidth ? "force-full-width" : "")
                 }
             >
                 <div className={
@@ -159,7 +168,7 @@ export default function HeaderSticky() {
 
             <style jsx>{`
                 .header__wrapper {
-                    background: ${headerBackground};
+                    background: ${headerBackgroundColor};
                     box-shadow: 2px 2px 5px -1px #bdbdbd;
                 }
                 .header__wrapper.fixed.hidden {
@@ -183,8 +192,12 @@ export default function HeaderSticky() {
                 .header__wrapper.sticky.hidden.top-reach {
                     display: none;
                 }
+                .header__wrapper.force-full-width {
+                    ${forceFullWidth ? "width: 100vw;margin-left: calc(50% - 50vw);":""}
+                }
                 .header__container.horizontal {
-                    ${horizontalLayout ? "display: grid;grid-template-columns: 10% 80% 10%;":""}
+                    display: grid;
+                    grid-template-columns: 1fr 8fr 1fr;
                 }
                 .header__logo-wrapper{
                     display: flex;
@@ -203,15 +216,25 @@ export default function HeaderSticky() {
                     justify-content: space-evenly;
                 }
                 .header__wrapper {
-                    border: 1px solid ${showContainersBorders ? "black" : "transparent"};
+                    border: 1px solid ${showContentBorders ? "black" : "transparent"};
                 }
                 .header__logo {
-                    border: 1px solid ${showContainersBorders ? "black" : "transparent"};
+                    border: 1px solid ${showContentBorders ? "black" : "transparent"};
                 }
                 .navbar__link {
-                    border: 1px solid ${showContainersBorders ? "black" : "transparent"};
+                    border: 1px solid ${showContentBorders ? "black" : "transparent"};
                 }
-                
+                @media (max-width: 480px) {
+                    .header__container.horizontal {
+                        display: grid;
+                        grid-template-columns: 1fr 9fr;
+                    }
+                    .header__wrapper.sticky {
+                        transform: translateY(0) !important;
+                        transition: 0s !important;
+                        opacity: 1 !important;
+                    }
+                }
             `}</style>
 
         </>
