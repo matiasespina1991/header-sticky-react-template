@@ -23,7 +23,9 @@ export default function HeaderSticky() {
 
     const headerBackground = "white"
 
-    const showContainerBorders = false;
+    const showContainersBorders = false;
+
+    /////////////////////////////////////
 
     const [ showStickyHeader , setShowStickyHeader ] = useState(false)
 
@@ -50,6 +52,7 @@ export default function HeaderSticky() {
 
     return(
         <>
+            {/* Fixed Header */}
             <div ref={headerFixed} className={`header__wrapper fixed ${showStickyHeader ? "hidden" : "active" }`}>
                 <div className="header__container">
                     <div className="header__logo-wrapper">
@@ -79,6 +82,7 @@ export default function HeaderSticky() {
                 </div>
             </div>
 
+            {/* Sticky Header */}
             <div ref={headerSticky} className={`header__wrapper sticky ${showStickyHeader ? "active" : "hidden" }`}>
                 <div className="header__container">
                     <div className="header__logo-wrapper">
@@ -144,13 +148,13 @@ export default function HeaderSticky() {
                     justify-content: space-evenly;
                 }
                 .header__wrapper {
-                    border: 1px solid ${showContainerBorders ? "black" : "transparent"};
+                    border: 1px solid ${showContainersBorders ? "black" : "transparent"};
                 }
                 .header__logo {
-                    border: 1px solid ${showContainerBorders ? "black" : "transparent"};
+                    border: 1px solid ${showContainersBorders ? "black" : "transparent"};
                 }
                 .navbar__link {
-                    border: 1px solid ${showContainerBorders ? "black" : "transparent"};
+                    border: 1px solid ${showContainersBorders ? "black" : "transparent"};
                 }
                 
             `}</style>
