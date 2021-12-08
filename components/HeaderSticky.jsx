@@ -1,4 +1,4 @@
-import { useRef , useEffect , useState } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import Link from 'next/link'
 
 export default function HeaderSticky() {
@@ -7,53 +7,66 @@ export default function HeaderSticky() {
 
     const navbarLinks = [
         {
-            "name": "Home",
+            "name": "Link #1",
             "href": "#"
-        },{
-            "name": "About Us",
+        }, {
+            "name": "Link #2",
             "href": "#"
-        },{
-            "name": "Shop",
+        }, {
+            "name": "Link #3",
             "href": "#"
-        },{
-            "name": "Contact",
+        }, {
+            "name": "Link #4",
             "href": "#"
         }
     ]
 
+    const slideMode = true
+
+    const fadeInMode = true
+
     const headerBackground = "white"
+
+    const animationSpeed = "0.5"
 
     const showContainersBorders = false;
 
     /////////////////////////////////////
 
-    const [ showStickyHeader , setShowStickyHeader ] = useState(false)
+    const [showStickyHeader, setShowStickyHeader] = useState(false)
+    const [headerStickyReachedTop, setHeaderStickyReachedTop] = useState(false)
 
     const headerFixed = useRef()
     const headerSticky = useRef()
 
     useEffect(() => {
-            window.addEventListener("scroll", scrollHandler, true);
-            return () => {
-                window.removeEventListener("scroll", scrollHandler, true);
-            };
+        window.addEventListener("scroll", scrollHandler, true);
+        return () => {
+            window.removeEventListener("scroll", scrollHandler, true);
+        };
     }, [])
 
     const scrollHandler = () => {
         const headerFixedIsOffViewport = headerFixed.current.getBoundingClientRect().bottom < 0
         const headerStickyReachedTop = headerFixed.current.getBoundingClientRect().top == 0
-        if(headerFixedIsOffViewport) {
+        const headerStickyOffsetsTop = headerFixed.current.getBoundingClientRect().top < 0
+        
+        if (headerFixedIsOffViewport) {
             setShowStickyHeader(true)
         }
-        if(headerStickyReachedTop){
+        if (headerStickyReachedTop) {
             setShowStickyHeader(false)
+            setHeaderStickyReachedTop(true)
+        } 
+        else if (headerStickyOffsetsTop){
+            setHeaderStickyReachedTop(false)
         }
     };
 
-    return(
+    return (
         <>
             {/* Fixed Header */}
-            <div ref={headerFixed} className={`header__wrapper fixed ${showStickyHeader ? "hidden" : "active" }`}>
+            <div ref={headerFixed} className={`header__wrapper fixed ${showStickyHeader ? "hidden" : "active"}`}>
                 <div className="header__container">
                     <div className="header__logo-wrapper">
                         <div className="header__logo">
@@ -65,7 +78,7 @@ export default function HeaderSticky() {
                             <ul className="navbar__list">
                                 {
                                     navbarLinks.map((link, index) => {
-                                        return(
+                                        return (
                                             <li key={index}>
                                                 <Link href={link.href}>
                                                     <a className="navbar__link">
@@ -83,7 +96,7 @@ export default function HeaderSticky() {
             </div>
 
             {/* Sticky Header */}
-            <div ref={headerSticky} className={`header__wrapper sticky ${showStickyHeader ? "active" : "hidden" }`}>
+            <div ref={headerSticky} className={`header__wrapper sticky ${slideMode ? "slide" : ""} ${showStickyHeader ? "active" : "hidden"} ${headerStickyReachedTop ? "top-reach" : ""}`}>
                 <div className="header__container">
                     <div className="header__logo-wrapper">
                         <div className="header__logo">
@@ -95,7 +108,7 @@ export default function HeaderSticky() {
                             <ul className="navbar__list">
                                 {
                                     navbarLinks.map((link, index) => {
-                                        return(
+                                        return (
                                             <li key={index}>
                                                 <Link href={link.href}>
                                                     <a className="navbar__link">
@@ -124,11 +137,19 @@ export default function HeaderSticky() {
                     position: fixed;
                     width: 100%;
                     top: 0;
-                    transition: 0.5s;
-                    opacity: 0;
+                    transform: translateY(${slideMode ? "-100%" : "0"});
+                    transition: ${animationSpeed}s;
+                    opacity: ${fadeInMode ? 0 : 1};
+                }
+                .header__wrapper.sticky.slide {
+                    transform: translateY(-100%);
                 }
                 .header__wrapper.sticky.active {
                     opacity: 1;
+                    transform: translateY(0%);
+                }
+                .header__wrapper.sticky.hidden.top-reach {
+                    display: none;
                 }
                 .header__logo-wrapper{
                     display: flex;
@@ -158,7 +179,7 @@ export default function HeaderSticky() {
                 }
                 
             `}</style>
-            
+
         </>
     )
 };
