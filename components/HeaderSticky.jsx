@@ -30,10 +30,10 @@ export default function HeaderSticky() {
     const stickySlideInMode = true
 
     // Sticky header "fade in" animation On/Off (Feature disabled for mobile)
-    const stickyFadeInMode = false
+    const stickyFadeInMode = true
 
     // Speed of fade in & slide in animation in seconds
-    const animationSpeed = "0.5"
+    const animationSpeed = "0.6"
 
     // Header Background color. Accepts color names, "transparent" or hex colors (eg. #0070F3)
     const headerBackgroundColor = "white"
@@ -41,7 +41,7 @@ export default function HeaderSticky() {
     // If the parent elements or the body has padding or margin and the 
     // Header looks narrower, the following function force the fixed and 
     // sticky header to reach the full width of the browser viewport.
-    const forceFullWidth = true
+    const forceFullWidth = false
 
     // Hide the header on mobile - Specify the viewport width where the header will stop being displayed
     const hideOnMobile = false
