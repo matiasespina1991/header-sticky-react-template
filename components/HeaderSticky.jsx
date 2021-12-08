@@ -21,17 +21,25 @@ export default function HeaderSticky() {
         }
     ]
 
-    const slideMode = true
+    // Display Header Logo and Navbar in Horizontal Layout
+    const horizontalLayout = true
 
-    const fadeInMode = true
+    // Sticky Header "slide in" mode
+    const stickySlideInMode = true
 
+    // Sticky Header "fade in" mode
+    const stickyFadeInMode = true
+
+    // Accepts color names, "transparent" or hex colors (eg. #0070F3)
     const headerBackground = "white"
 
+    // Speed of fade in / slide in animation in seconds
     const animationSpeed = "0.5"
 
+    // Debug Mode On/Off
     const showContainersBorders = false;
 
-    /////////////////////////////////////
+    /////////////////////////////////////////////////////////////
 
     const [showStickyHeader, setShowStickyHeader] = useState(false)
     const [headerStickyReachedTop, setHeaderStickyReachedTop] = useState(false)
@@ -66,8 +74,19 @@ export default function HeaderSticky() {
     return (
         <>
             {/* Fixed Header */}
-            <div ref={headerFixed} className={`header__wrapper fixed ${showStickyHeader ? "hidden" : "active"}`}>
-                <div className="header__container">
+            
+            <div 
+                ref={headerFixed} 
+                className={
+                    'header__wrapper ' + 
+                    'fixed ' +
+                    (showStickyHeader ? "hidden " : "active ")
+                }
+            >
+                <div className={
+                    'header__container ' +
+                    (horizontalLayout ? 'horizontal ' : "")
+                    }>
                     <div className="header__logo-wrapper">
                         <div className="header__logo">
                             {headerLogo}
@@ -96,8 +115,21 @@ export default function HeaderSticky() {
             </div>
 
             {/* Sticky Header */}
-            <div ref={headerSticky} className={`header__wrapper sticky ${slideMode ? "slide" : ""} ${showStickyHeader ? "active" : "hidden"} ${headerStickyReachedTop ? "top-reach" : ""}`}>
-                <div className="header__container">
+
+            <div 
+                ref={headerSticky} 
+                className={
+                    "header__wrapper " +
+                    "sticky " +
+                    (stickySlideInMode ? "slide " : "") +
+                    (showStickyHeader ? "active " : "hidden ") +
+                    (headerStickyReachedTop ? "top-reach " : "")
+                }
+            >
+                <div className={
+                    'header__container ' +
+                    (horizontalLayout ? 'horizontal ' : "")
+                }>
                     <div className="header__logo-wrapper">
                         <div className="header__logo">
                             {headerLogo}
@@ -137,9 +169,9 @@ export default function HeaderSticky() {
                     position: fixed;
                     width: 100%;
                     top: 0;
-                    transform: translateY(${slideMode ? "-100%" : "0"});
+                    transform: translateY(${stickySlideInMode ? "-100%" : "0"});
                     transition: ${animationSpeed}s;
-                    opacity: ${fadeInMode ? 0 : 1};
+                    opacity: ${stickyFadeInMode ? 0 : 1};
                 }
                 .header__wrapper.sticky.slide {
                     transform: translateY(-100%);
@@ -151,11 +183,13 @@ export default function HeaderSticky() {
                 .header__wrapper.sticky.hidden.top-reach {
                     display: none;
                 }
+                .header__container.horizontal {
+                    ${horizontalLayout ? "display: grid;grid-template-columns: 10% 80% 10%;":""}
+                }
                 .header__logo-wrapper{
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    min-height: 4rem;
                 }
                 .header__logo {
                     padding: 1rem;
