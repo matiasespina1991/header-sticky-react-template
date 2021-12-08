@@ -43,6 +43,10 @@ export default function HeaderSticky() {
     // sticky header to reach the full width of the browser viewport.
     const forceFullWidth = true
 
+    // Hide the header on mobile - Specify the viewport width where the header will stop being displayed
+    const hideOnMobile = false
+    const setMobileWidth = 480
+
     // Displays borders around header inner div elements / Use this as a Debug Mode - On/Off
     const showContentBorders = false
 
@@ -233,6 +237,11 @@ export default function HeaderSticky() {
                         transform: translateY(0) !important;
                         transition: 0s !important;
                         opacity: 1 !important;
+                    }
+                }
+                @media (max-width: ${setMobileWidth}px) {
+                    .header__wrapper{
+                        display: ${hideOnMobile ? "none": "block"};
                     }
                 }
             `}</style>
