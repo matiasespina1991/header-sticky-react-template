@@ -35,10 +35,10 @@ export default function HeaderSticky() {
     const stickySlideInMode = false
 
     // Sticky header "fade in" animation On/Off (Feature disabled for mobile)
-    const stickyFadeInMode = false
+    const stickyFadeInMode = true
 
     // Speed of fade in & slide in animation in seconds
-    const animationSpeed = "0.6"
+    const animationSpeed = "0.3"
 
     // Header Background color. Accepts color names, "transparent" or hex colors (eg. #0070F3)
     const headerBackgroundColor = "white"
