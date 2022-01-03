@@ -104,6 +104,11 @@
   margin-left: 0.5rem;
 }
 
+.test-space {
+  height: 4rem;
+  border: 2px solid black;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
