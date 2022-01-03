@@ -24,7 +24,7 @@ export default function HeaderSticky() {
     /////////////////////////////////////////////////////////////
 
     // Defines de font size of the navbar links. Supports 'px', 'rem', 'em' or any CSS font unit
-    const navbarLink_fontSize = '0.5rem';
+    const navbarLink_fontSize = '1rem';
 
     // Display healogo--background-img and navbar in Horizontal Layout instead of the default Vertical - On/Off
     const horizontalLayout = false
